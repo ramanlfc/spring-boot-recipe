@@ -18,6 +18,10 @@ public class Ingredient {
     @ManyToMany(mappedBy = "ingredients")
     private Set<Recipe> recipes;
 
+    @OneToOne
+    @JoinColumn(name="uom_id")
+    private UnitOfMeasure unitOfMeasure;
+
     public long getId() {
         return id;
     }
@@ -48,5 +52,13 @@ public class Ingredient {
 
     public void setRecipes(Set<Recipe> recipes) {
         this.recipes = recipes;
+    }
+
+    public UnitOfMeasure getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
+    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
     }
 }
