@@ -1,6 +1,7 @@
-package model;
+package guru.springframework.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -23,6 +24,11 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "notes_id")
     private Notes notes;
+
+    @ManyToMany
+    @JoinTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "recipe_id")
+            , inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> ingredients;
 
     public long getId() {
         return id;
@@ -95,4 +101,21 @@ public class Recipe {
     public void setImage(byte[] image) {
         this.image = image;
     }
+
+    public Notes getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Notes notes) {
+        this.notes = notes;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
 }
