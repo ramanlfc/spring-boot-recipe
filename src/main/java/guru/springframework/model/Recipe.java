@@ -18,6 +18,9 @@ public class Recipe {
     private int servings;
     private String source;
 
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty;
+
     @Lob
     private byte[] image;
 
@@ -25,9 +28,14 @@ public class Recipe {
     @JoinColumn(name = "notes_id")
     private Notes notes;
 
+    @ManyToMany
+    @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
+
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "recipe_id")
-            , inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    @JoinTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "recipe_id"),
+             inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private Set<Ingredient> ingredients;
 
     public long getId() {
@@ -52,6 +60,14 @@ public class Recipe {
 
     public void setDirections(String directions) {
         this.directions = directions;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 
     public String getUrl() {
@@ -118,4 +134,11 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
 }
