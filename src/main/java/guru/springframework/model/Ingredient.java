@@ -15,12 +15,23 @@ public class Ingredient {
 
     private BigDecimal amount;
 
+    public Ingredient(String name, BigDecimal amount, UnitOfMeasure unitOfMeasure) {
+        this.name = name;
+        this.amount = amount;
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
     @ManyToMany(mappedBy = "ingredients")
     private Set<Recipe> recipes;
 
     @OneToOne
     @JoinColumn(name="uom_id")
     private UnitOfMeasure unitOfMeasure;
+
+    public Ingredient() {
+    }
+
+
 
     public long getId() {
         return id;

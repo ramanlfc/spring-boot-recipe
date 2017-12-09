@@ -11,12 +11,14 @@ public class Recipe {
     private long id;
 
     private String description;
-    private String directions;
     private String url;
     private int cookTime;
     private int prepTime;
     private int servings;
     private String source;
+
+    @Lob
+    private String directions;
 
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
